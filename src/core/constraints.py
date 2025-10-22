@@ -20,3 +20,12 @@ class GeminiModel:
     FLASH_LIGHT = "gemini-2.5-flash-lite"
     PRO = "gemini-2.5-pro"
 
+
+@dataclass
+class HttpStatus:
+    BAD_REQUEST = 400
+    UNAUTHORIZED = 401
+    FORBIDDEN = 403
+    NOT_FOUND = 404
+    INTERNAL_SERVER_ERROR = 500
+    OK = 200
