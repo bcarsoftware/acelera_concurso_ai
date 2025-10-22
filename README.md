@@ -47,12 +47,18 @@ Abaixo uma tabela dos "Scripts Utilitários" que existem nesse projeto.
 ## Variáveis de Ambiente
 Garanta que você já copiou o arquivo [.env.example](.env.example) para [.env](.env). Se pronto, agora veja a tabela de variáveis de ambiente:
 
-| Variável         | Descrição                      | Valor Esperado            |
-|------------------|--------------------------------|---------------------------|
-| `GEMINI_API_KEY` | Chave de API do Google Gemini. | zUDi6p4nJVv...cLCZsS7ctI= |
+| Variável         | Descrição                      | Valor Esperado             |
+|------------------|--------------------------------|----------------------------|
+| `GEMINI_API_KEY` | Chave de API do Google Gemini. | zUDi6p4nJVv...cLCZsS7ctI=  |
+| `SELECT_MODEL`   | O modelo que será utilizado.   | Flash ou Pro ou FlashLight |
 
 Lembrando que a variável `GEMINI_API_KEY` deve ser gerada na sua conta [Google AI Studio](https://aistudio.google.com/).
 
 Disponibilizo esse tutorial: [Tutorial Gerar Gemini API KEY](https://ai.google.dev/gemini-api/docs/api-key).
 
 Copie a chave gerada para a `GEMINI_API_KEY` variável dentro do [.env](.env).
+
+## Modelos Utilizados
+Esse projeto utiliza largamente os modelos disponibilizados pelo Gemini. O dataclass [environ.GeminiModel](src/core/constraints.py:17).
+
+Para saber mais sobre os modelos do Gemini, acesse: [docs](https://ai.google.dev/gemini-api/docs/models).

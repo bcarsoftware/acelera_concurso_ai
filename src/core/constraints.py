@@ -11,3 +11,12 @@ load_dotenv()
 @dataclass
 class Environ:
     GEMINI_API_KEY = environ.get("GEMINI_API_KEY") or "gemini-api-key"
+    SELECT_MODEL = environ.get("SELECT_MODEL") or "select-model"
+
+
+@dataclass
+class GeminiModel:
+    FLASH = "gemini-2.5-flash"
+    FLASH_LIGHT = "gemini-2.5-flash-lite"
+    PRO = "gemini-2.5-pro"
+
