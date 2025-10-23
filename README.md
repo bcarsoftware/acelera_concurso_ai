@@ -19,6 +19,15 @@ Você pode tanto usar a IDE de vocês como correr o seguinte comando no console:
 ```commandline
 python app.py
 ```
+
+Ou através de comandos do FLask -- com ou sem debug ativado:
+```commandline
+flask --app app run --debug
+```
+```commandline
+flask --app app run
+```
+
 **OBSERVAÇÃO:** Para que tenha o efeito necessário, siga os passos descritos no capítulo: [Configuração](#configuração).
 
 # Configuração
@@ -70,6 +79,8 @@ Garanta que você já copiou o arquivo [.env.example](.env.example) para [.env](
 | `GEMINI_API_KEY` | Chave de API do Google Gemini.  | zUDi6p4nJVv...cLCZsS7ctI=  |
 | `SELECT_MODEL`   | O modelo que será utilizado.    | Flash ou Pro ou FlashLight |
 | `APP_NAME`       | O nome ou tag para a aplicação. | AceleraConcursoAI          |
+| `HOST`           | Nome do hospedeiro ou IP.       | localhost                  |
+| `PORT`           | Número da porta de acesso.      | 8000                       |
 
 Lembrando que a variável `GEMINI_API_KEY` deve ser gerada na sua conta [Google AI Studio](https://aistudio.google.com/).
 

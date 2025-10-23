@@ -13,6 +13,8 @@ class Environ:
     GEMINI_API_KEY = environ.get("GEMINI_API_KEY") or "gemini-api-key"
     SELECT_MODEL = environ.get("SELECT_MODEL") or "select-models"
     APP_NAME = environ.get("APP_NAME") or "app-name"
+    HOST = environ.get("HOST") or "host"
+    PORT = int(environ.get("PORT")) or 0
 
 
 @dataclass
