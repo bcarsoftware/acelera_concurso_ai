@@ -12,6 +12,7 @@ load_dotenv()
 class Environ:
     GEMINI_API_KEY = environ.get("GEMINI_API_KEY") or "gemini-api-key"
     SELECT_MODEL = environ.get("SELECT_MODEL") or "select-model"
+    APP_NAME = environ.get("APP_NAME") or "app-name"
 
 
 @dataclass
@@ -30,11 +31,6 @@ class HttpStatus:
     NOT_FOUND = 404
     INTERNAL_SERVER_ERROR = 500
     OK = 200
-
-
-@dataclass
-class Headers:
-    JSON_ONE = { "Content-Type": "application/json" }
 
 
 @dataclass
