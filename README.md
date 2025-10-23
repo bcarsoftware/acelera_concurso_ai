@@ -80,7 +80,7 @@ Copie a chave gerada para a `GEMINI_API_KEY` variável dentro do [.env](.env).
 ## Modelos Utilizados
 Esse tópico é sobre os modelos de IA utilizados na configuração desse projeto. Aqui você encontra alguns links interessantes para aprofundamento, aproveite!
 
-Esse projeto utiliza largamente os modelos disponibilizados pelo Gemini. O dataclass [environ.GeminiModel](src/core/constraints.py:17).
+Esse projeto utiliza largamente os modelos disponibilizados pelo Gemini. O dataclass [environ.GeminiModel](src/core/constraints.py:#L19).
 
 Para saber mais sobre os modelos do Gemini, acesse: [docs](https://ai.google.dev/gemini-api/docs/models).
 
