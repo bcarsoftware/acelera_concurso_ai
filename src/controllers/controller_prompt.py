@@ -1,7 +1,7 @@
 from flask import Request, Response
 
 from src.core.constraints import HttpStatus
-from src.core.controller.icontroller_prompt import IControllerPrompt
+from src.controllers.icontroller_prompt import IControllerPrompt
 from src.core.responses.response_success import response_success
 from src.services.iservice_prompt import IServicePrompt
 from src.services.service_prompt import ServicePrompt

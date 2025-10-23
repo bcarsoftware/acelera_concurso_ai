@@ -30,3 +30,17 @@ class HttpStatus:
     NOT_FOUND = 404
     INTERNAL_SERVER_ERROR = 500
     OK = 200
+
+
+@dataclass
+class Headers:
+    JSON_ONE = { "Content-Type": "application/json" }
+
+
+@dataclass
+class Methods:
+    GET = "GET"
+    POST = "POST"
+    PUT = "PUT"
+    DELETE = "DELETE"
+    PATCH = "PATCH"
