@@ -15,6 +15,7 @@ class Environ:
     APP_NAME = environ.get("APP_NAME") or "app-name"
     HOST = environ.get("HOST") or "host"
     PORT = int(environ.get("PORT")) or 0
+    CORS_FILE_NAME = environ.get("CORS_FILE_NAME") or "cors-file-name"
 
 
 @dataclass

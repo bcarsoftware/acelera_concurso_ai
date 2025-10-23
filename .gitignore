@@ -208,3 +208,6 @@ __marimo__/
 
 # draft file
 draft.py
+
+# cors list file
+cors_origins.txt
