@@ -5,8 +5,8 @@ from google.genai.errors import ClientError
 
 from src.core.constraints import Environ, GeminiModel, HttpStatus
 from src.errors.gemini_error import GeminiError
-from src.model.prompt_dto import PromptDTO
-from src.model.prompt_resp import PromptResponse
+from src.models.prompt_dto import PromptDTO
+from src.models.prompt_resp import PromptResponse
 
 
 class Gemini:

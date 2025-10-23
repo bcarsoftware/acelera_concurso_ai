@@ -11,7 +11,7 @@ load_dotenv()
 @dataclass
 class Environ:
     GEMINI_API_KEY = environ.get("GEMINI_API_KEY") or "gemini-api-key"
-    SELECT_MODEL = environ.get("SELECT_MODEL") or "select-model"
+    SELECT_MODEL = environ.get("SELECT_MODEL") or "select-models"
     APP_NAME = environ.get("APP_NAME") or "app-name"
 
 

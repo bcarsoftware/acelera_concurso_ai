@@ -4,7 +4,7 @@ from typing import Dict, Any
 from src.core.constraints import HttpStatus
 from src.core.regex import Regex
 from src.errors.prompt_error import PromptError
-from src.model.prompt_dto import PromptDTO
+from src.models.prompt_dto import PromptDTO
 from src.utils.json_to_dto import json_to_dto
 
 
@@ -12,7 +12,7 @@ class PromptDTOChecks:
     @classmethod
     async def get_prompt_dto(cls, data: Dict[str, Any]) -> PromptDTO:
         prompt_error = PromptError(
-            "data incompatible with the model prompt dto",
+            "data incompatible with the models prompt dto",
             HttpStatus.UNPROCESSABLE_ENTITY
         )
 

@@ -1,6 +1,6 @@
 from src.gemini.gemini import Gemini
-from src.model.prompt_dto import PromptDTO
-from src.model.prompt_resp import PromptResponse
+from src.models.prompt_dto import PromptDTO
+from src.models.prompt_resp import PromptResponse
 from src.services.iservice_prompt import IServicePrompt
 from src.utils.prompt_dto_checks import PromptDTOChecks
 

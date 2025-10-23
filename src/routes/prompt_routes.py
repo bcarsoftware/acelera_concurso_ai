@@ -1,4 +1,4 @@
-from flask import Request, Response
+from flask import request, Response
 from flask.blueprints import Blueprint
 
 from src.controllers.controller_prompt import ControllerPrompt
@@ -11,5 +11,5 @@ controller_prompt: IControllerPrompt = ControllerPrompt()
 
 
 @prompt_route.route("/", methods=[Methods.POST])
-async def prompt_questions(request: Request) -> Response:
+async def prompt_questions() -> Response:
     return await controller_prompt.generate_questions(request)
