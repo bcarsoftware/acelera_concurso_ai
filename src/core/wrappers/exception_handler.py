@@ -6,10 +6,11 @@ from src.errors.default_error import DefaultError
 
 
 def exception_handler(function: Callable) -> Callable:
-    @wraps
+    @wraps(function)
     async def wrapper(*args, **kwargs):
         try:
             return function(*args, **kwargs)
         except DefaultError as error:
             return await response_error(error)
+
     return wrapper

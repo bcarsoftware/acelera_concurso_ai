@@ -12,4 +12,3 @@ class DefaultError(ABC, RuntimeError):
         super().__init__(message)
         self.message = message
         self.code = code
-        self.name = self.__class__.__name__

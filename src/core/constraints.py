@@ -43,3 +43,9 @@ class Methods:
     PUT = "PUT"
     DELETE = "DELETE"
     PATCH = "PATCH"
+
+
+@dataclass
+class Token:
+    PUBLIC_KEY = environ.get("PUBLIC_SECRET") or "public-key"
+    SECRET_KEY = environ.get("PRIVATE_SECRET") or "secret-key"
