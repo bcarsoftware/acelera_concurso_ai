@@ -22,10 +22,14 @@ class PromptDTOChecks:
 
     @classmethod
     async def check_prompt_dto(cls, prompt_dto: PromptDTO) -> None:
-        if not match(Regex.STRING_4_MIN, prompt_dto.value):
+        prompt_dto.prompt = prompt_dto.prompt.strip()
+
+        if not match(Regex.STRING_4_MIN, prompt_dto.prompt):
             raise PromptError("invalid prompt text", HttpStatus.BAD_REQUEST)
 
         if prompt_dto.params:
+            prompt_dto.params = [param.strip() for param in prompt_dto.params]
+
             for param in prompt_dto.params:
                 if not match(Regex.STRING_2_MIN, param):
                     raise PromptError("invalid prompt param", HttpStatus.BAD_REQUEST)

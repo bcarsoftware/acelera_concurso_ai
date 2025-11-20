@@ -7,6 +7,12 @@ from src.routes.prompt_routes import prompt_route
 
 app = Flask(Environ.APP_NAME)
 
+
+@app.route("/")
+def index():
+    return { "message": "Hello World" }
+
+
 origins = get_origins()
 
 CORS(app, origins=origins, methods=[
