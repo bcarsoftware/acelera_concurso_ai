@@ -75,14 +75,16 @@ Abaixo uma tabela dos "Scripts Utilitários" que existem nesse projeto.
 ## Variáveis de Ambiente
 Garanta que você já copiou o arquivo [.env.example](.env.example) para [.env](.env). Se pronto, agora veja a tabela de variáveis de ambiente:
 
-| Variável         | Descrição                            | Valor Esperado             |
-|------------------|--------------------------------------|----------------------------|
-| `GEMINI_API_KEY` | Chave de API do Google Gemini.       | zUDi6p4nJVv...cLCZsS7ctI=  |
-| `SELECT_MODEL`   | O modelo que será utilizado.         | Flash ou Pro ou FlashLight |
-| `APP_NAME`       | O nome ou tag para a aplicação.      | AceleraConcursoAI          |
-| `HOST`           | Nome do hospedeiro ou IP.            | localhost                  |
-| `PORT`           | Número da porta de acesso.           | 8000                       |
-| `CORS_FILE_NAME` | Nome do arquivo da lista de origins. | cors_origins.txt           |
+| Variável         | Descrição                                       | Valor Esperado             |
+|------------------|-------------------------------------------------|----------------------------|
+| `GEMINI_API_KEY` | Chave de API do Google Gemini.                  | zUDi6p4nJVv...cLCZsS7ctI=  |
+| `SELECT_MODEL`   | O modelo que será utilizado.                    | Flash ou Pro ou FlashLight |
+| `APP_NAME`       | O nome ou tag para a aplicação.                 | AceleraConcursoAI          |
+| `HOST`           | Nome do hospedeiro ou IP.                       | localhost                  |
+| `PORT`           | Número da porta de acesso.                      | 8000                       |
+| `CORS_FILE_NAME` | Nome do arquivo da lista de origins.            | cors_origins.txt           |
+| `PUBLIC_SECRET`  | Chave pública para acesso a esta API.           | zUDi6p4nJVv...cLCZsS7ctI=  |
+| `PRIVATE_SECRET` | Chave privada para acesso a esta API (interna). | zUDi6p4nJVv...cLCZsS7ctI=  |
 
 Lembrando de executar o script [RenameCorsFile](rename_cors_file.py) pela primeira vez, então a variável `CORS_FILE_NAME`
 funcionará perfeitamente.
