@@ -16,6 +16,8 @@ class Environ:
     HOST = environ.get("HOST") or "host"
     PORT = int(environ.get("PORT")) or 0
     CORS_FILE_NAME = environ.get("CORS_FILE_NAME") or "cors-file-name"
+    DEFAULT_TIMEOUT = int(environ.get("DEFAULT_TIMEOUT") or "30")
+    ENVIRON = environ.get("ENVIRON") or "environment"
 
 
 @dataclass

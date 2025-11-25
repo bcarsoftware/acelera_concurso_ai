@@ -1,9 +1,17 @@
+import socket
+from os import system
+
 from flask import Flask
 from flask_cors import CORS
 
 from src.core.constraints import Environ, Methods
 from src.core.origins import get_origins
 from src.routes.prompt_routes import prompt_route
+from src.routes.question_routes import question_route
+
+
+if Environ.ENVIRON == "PRODUCTION":
+    socket.setdefaulttimeout(Environ.DEFAULT_TIMEOUT)
 
 app = Flask(Environ.APP_NAME)
 
@@ -20,7 +28,11 @@ CORS(app, origins=origins, methods=[
 ])
 
 app.register_blueprint(prompt_route)
+app.register_blueprint(question_route)
 
 
 if __name__ == '__main__':
-    app.run(debug=True, port=Environ.PORT, host=Environ.HOST)
+    if Environ.ENVIRON == "PRODUCTION":
+        system("./start.sh")
+    elif Environ.ENVIRON == "DEVELOPMENT":
+        app.run(host=Environ.HOST, port=Environ.PORT, debug=True)
