@@ -16,3 +16,10 @@ controller_question: IControllerQuestion = ControllerQuestion()
 @authenticated
 async def generate_questions() -> Response:
     return await controller_question.generate_questions(request)
+
+
+@exception_handler
+@question_route.route("/from-pdf", methods=[Methods.POST])
+@authenticated
+async def generate_question_from_pdf() -> Response:
+    return await controller_question.generate_question_from_pdf(request)

@@ -23,6 +23,7 @@ class QuestionDTO(BaseModel):
     topic: Optional[str] = None
     law_link: Optional[str] = None
     law_content: Optional[str] = None
+    pdf_content: Optional[str] = None
 
     @property
     def string(self) -> str:
@@ -36,6 +37,7 @@ class QuestionDTO(BaseModel):
         value += f"board name: {self.board_name}\n" if self.board_name else ""
         value += f"topic: {self.topic}\n" if self.topic else ""
         value += f"law content: {self.law_content}\n" if self.law_content else ""
+        value += f"pdf_content: {self.pdf_content}" if self.pdf_content else ""
 
         value = value.strip().lower()
 
