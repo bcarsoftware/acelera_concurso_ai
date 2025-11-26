@@ -1,8 +1,11 @@
+from io import BytesIO
+
 from flask import Request, Response
+from werkzeug.datastructures import FileStorage
 
 from src.controllers.icontroller_question import IControllerQuestion
 from src.core.constraints import HttpStatus
-from src.core.responses.response_success import response_success
+from src.core.responses.response_success import response_success, response_success_file
 from src.enums.enum_style import EnumStyle
 from src.errors.question_error import QuestionError
 from src.services.iservice_question import IServiceQuestion
@@ -59,10 +62,27 @@ class ControllerQuestion(IControllerQuestion):
             status_code=HttpStatus.OK
         )
 
+    async def generate_pdf_questions(self, request: Request) -> Response:
+        payload = request.json
+
+        question_response = await QuestionChecks.convert_to_question_response(payload)
+
+        data = await self.service_question.generate_pdf_questions(question_response)
+        pdf_file = FileStorage(
+            stream=BytesIO(data),
+            filename="concurso-publico-e-gabarito.pdf",
+            content_type="application/pdf"
+        )
+
+        return await response_success_file(
+            data=pdf_file,
+            status_code=HttpStatus.OK
+        )
+
     @staticmethod
     async def _get_format_(status: EnumStyle) -> str:
         return (
             '{questions: [ {id: number, question: question-text, alternatives: [Certo, Errado], answer: correct answer}...]}'
             if status == EnumStyle.RIGHT_WRONG else
-            '{questions: [ {id: number, question: question-text, alternatives: [<letter> <string>...], answer: <letter> <string>}...]}'
+            '{questions: [ {id: number, question: question-text, alternatives: [<string>...], answer: <string>}...]}'
         )

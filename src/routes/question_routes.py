@@ -23,3 +23,10 @@ async def generate_questions() -> Response:
 @authenticated
 async def generate_question_from_pdf() -> Response:
     return await controller_question.generate_question_from_pdf(request)
+
+
+@exception_handler
+@question_route.route("/convert/to-pdf", methods=[Methods.POST])
+@authenticated
+async def generate_pdf_questions() -> Response:
+    return await controller_question.generate_pdf_questions(request)

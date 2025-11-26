@@ -27,7 +27,9 @@ class QuestionDTO(BaseModel):
 
     @property
     def string(self) -> str:
-        value = f"{self.prompt}\nquestions: {self.questions}\n"
+        value = f"{
+            self.prompt + ". Without alternatives like: A). Only the alternative text."
+        }\nquestions: {self.questions}\n"
         value += f"language: {self.language.value}\n"
         value += f"level: {self.level.value}\nstatus: {self.status.value}\n"
         value += f"return format: {self.format}\n"

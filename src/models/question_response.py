@@ -12,3 +12,5 @@ class Question(BaseModel):
 
 class QuestionResponse(BaseModel):
     questions: List[Question] = []
+    public_tender: Optional[str] = None
+    board_name: Optional[str] = None
