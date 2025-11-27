@@ -41,7 +41,7 @@ class ControllerQuestion(IControllerQuestion):
         )
 
     async def generate_question_from_pdf(self, request: Request) -> Response:
-        pdf_file = request.files["pdf_file"]
+        pdf_file = request.files.get("pdf_file")
         form = dict(request.form)
 
         if not pdf_file:

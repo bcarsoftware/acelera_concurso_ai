@@ -4,6 +4,7 @@ from typing import Any
 import pymupdf
 
 from src.core.constraints import PagePaper
+from src.errors.question_error import QuestionError
 from src.gemini.gemini import Gemini
 from src.models.question_dto import QuestionDTO
 from src.models.question_response import QuestionResponse
@@ -40,7 +41,10 @@ class ServiceQuestion(IServiceQuestion):
         return QuestionResponse.model_validate(object_json)
 
     async def generate_pdf_questions(self, question_response: QuestionResponse) -> bytes:
-        content, template = await QuestionChecks.convert_question_response_to_string(question_response)
+        contents, templates = await QuestionChecks.convert_question_response_to_string(question_response)
+
+        if len(contents) < 1 or len(templates) < 1:
+            raise QuestionError("empty data can't be used")
 
         text_area_rect = pymupdf.Rect(
             PagePaper.MARGIN,
@@ -49,33 +53,42 @@ class ServiceQuestion(IServiceQuestion):
             PagePaper.A4_HEIGHT - PagePaper.MARGIN
         )
 
+        exam_content = (
+            f"{question_response.public_tender.upper()}\n" if question_response.public_tender else
+            f"GERADOR DE QUESTÔES DE CONCURSOS\n"
+        )
+        exam_content += (
+            f"{question_response.board_name.upper()}\nACELERA CONCURSO\n{"=" * 62}\n"
+            if question_response.board_name else f"ACELERA CONCURSO\n{"=" * 62}\n"
+        )
+
         with pymupdf.open() as pdf:
-            page = pdf.new_page(width=PagePaper.A4_WIDTH, height=PagePaper.A4_HEIGHT)
+            for content in contents:
+                page = pdf.new_page(width=PagePaper.A4_WIDTH, height=PagePaper.A4_HEIGHT)
 
-            page.insert_textbox(
-                text_area_rect,
-                (f"{question_response.public_tender.upper()}\n" if question_response.public_tender else
-                "GERADOR DE QUESTÔES DE CONCURSOS")+
-                (f"{question_response.board_name.upper()}\nACELERA CONCURSO\n{"=" * 62}\n\n{content}" if question_response.board_name else
-                "ACELERA CONCURSO"),
-                fontsize=12,
-                fontname="Inter",
-                fontfile="font/Inter.ttf",
-                color=(0, 0, 0),
-                align=pymupdf.TEXT_ALIGN_LEFT
-            )
+                page.insert_textbox(
+                    text_area_rect,
+                    exam_content + content,
+                    fontsize=12,
+                    fontname="Inter",
+                    fontfile="font/Inter.ttf",
+                    color=(0, 0, 0),
+                    align=pymupdf.TEXT_ALIGN_LEFT
+                )
+                exam_content = ""
 
-            template_page = pdf.new_page(width=PagePaper.A4_WIDTH, height=PagePaper.A4_HEIGHT)
+            for template in templates:
+                template_page = pdf.new_page(width=PagePaper.A4_WIDTH, height=PagePaper.A4_HEIGHT)
 
-            template_page.insert_textbox(
-                text_area_rect,
-                template,
-                fontsize=12,
-                fontname="Inter",
-                fontfile="font/Inter.ttf",
-                color=(0, 0, 0),
-                align=pymupdf.TEXT_ALIGN_LEFT
-            )
+                template_page.insert_textbox(
+                    text_area_rect,
+                    template,
+                    fontsize=12,
+                    fontname="Inter",
+                    fontfile="font/Inter.ttf",
+                    color=(0, 0, 0),
+                    align=pymupdf.TEXT_ALIGN_LEFT
+                )
 
             pdf_file = pdf.convert_to_pdf()
 

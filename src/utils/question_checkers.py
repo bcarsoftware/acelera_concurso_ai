@@ -31,25 +31,35 @@ class QuestionChecks:
         return QuestionResponse(**question_response.model_dump())
 
     @classmethod
-    async def convert_question_response_to_string(cls, question_response: QuestionResponse) -> Tuple[str, str]:
+    async def convert_question_response_to_string(cls, question_response: QuestionResponse) -> Tuple[tuple, tuple]:
         if not question_response.questions:
             raise QuestionError("questions can't be empty", HttpStatus.BAD_REQUEST)
 
-        content = ""
-        template = f"GABARITO DE RESPOSTAS\nACELERA CONCURSO\n{"=" * 62}"
+        template = f"GABARITO DE RESPOSTAS\nACELERA CONCURSO\n{"=" * 62}\n"
+
+        questions = ()
+        templates = ()
 
         for question in question_response.questions:
-            content += f"{question.id}. {question.question}\n\n"
+            content = f"{question.id}. {question.question}\n\n"
             letter = 65
             for alternative in question.alternatives:
                 content += f"{chr(letter)}) {alternative}\n"
                 letter += 1
             content += "\n"
+            questions += (content, )
+
             index_answer = question.alternatives.index(question.answer)
             letter = 65 + index_answer
             template += f"{question.id}. {chr(letter)})\n"
+            templates += (template, )
+            template = ""
 
-        return content, template
+        questions = tuple("".join(questions[i:i + 4]) for i in range(0, len(questions), 5))
+
+        templates = tuple("".join(templates[i:i + 40]) for i in range(0, len(templates), 40))
+
+        return questions, templates
 
     @classmethod
     async def make_validation(cls, question_dto: QuestionDTO) -> None:

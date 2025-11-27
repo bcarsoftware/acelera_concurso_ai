@@ -29,10 +29,10 @@ class QuestionDTO(BaseModel):
     def string(self) -> str:
         value = f"{
             self.prompt + ". Without alternatives like: A). Only the alternative text."
-        }\nquestions: {self.questions}\n"
+        }\nquestions: {self.questions}. Don't use any introductory information or posterior, only the required format."
         value += f"language: {self.language.value}\n"
         value += f"level: {self.level.value}\nstatus: {self.status.value}\n"
-        value += f"return format: {self.format}\n"
+        value += f"unique and exclusive return format (it must be involved in markdown text like: ```json...```): {self.format}\n"
 
         value += f"public tender exam: {self.public_tender}\n" if self.public_tender else ""
         value += f"subject: {self.subject}\n" if self.subject else ""
