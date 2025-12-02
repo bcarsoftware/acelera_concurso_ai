@@ -21,6 +21,7 @@ link de legislação.
 4. [Variáveis de Ambiente](#variáveis-de-ambiente)
 5. [Modelos I.A. Utilizados](#modelos-ia-utilizados)
 6. [Rotas e Modelo](#rotas-e-modelos)
+7. [Informações Extra](#informações-extra)
 
 ## Fazendo Funcionar
 Esse projeto possui um modulo que faz todo o inicio da configuração, lhes apresento o [App](app.py). Lembrando que primero o projeto e as dependências devem
@@ -196,5 +197,22 @@ As respostas dessa API segue a convenção do modelo de response:
 * Os parametros de lista aqui descrito, podem ter de 0 elementos a vários, obedecendo o tipo;
 * Tudo o que está entre aspas é texto;
 * Os parametros que são opcionais, você encontra declarado como `"alguma coisa | null"` no objeto acima.
+
+
+## Informações Extra
+
+No arquivo principal desta API Flask, o arquivo [app.py](app.py), você encontra a seguinte linha:
+
+```
+if __name__ == '__main__':
+    if Environ.ENVIRON == "PRODUCTION":
+        system("./start.sh")
+    elif Environ.ENVIRON == "DEVELOPMENT":
+        app.run(host=Environ.HOST, port=Environ.PORT, debug=True)
+```
+
+Nesta mesma linha há uma referência para um arquivo de script bash chamado [start.sh](start.sh), nele é feita uma configuração para
+utilizar o [Gunicorn](https://gunicorn.org/) caso a variável de ambiente `Environ` esteja definida como `PRODUCTION` no arquivo [.env](.env).
+Do contrário, é utilizado uma versão de desenvolvimento definida por padrão para o Flask.
 
 *That's All Folks!*
