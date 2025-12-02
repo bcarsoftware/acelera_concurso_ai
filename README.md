@@ -14,6 +14,8 @@ Uma vez que essas questões são geradas no formato [QuestionResponse](src/model
 Esse projeto utiliza-se de recursos de [Web Scrapping](https://en.wikipedia.org/wiki/Web_scraping) na opção de gerar questões por
 link de legislação.
 
+**Esse projeto faz parte do meu TCC: [abelbarreto-dev](https://github.com/abelbarreto-dev).**
+
 ## Tabela de Conteúdo
 1. [Fazendo Funcionar](#fazendo-funcionar)
 2. [Configuração](#configuração)
