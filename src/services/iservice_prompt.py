@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 
 from src.models.prompt_dto import PromptDTO
-from src.models.prompt_resp import PromptResponse
+from src.models.prompt_response import PromptResponse
 from src.models.study_tips_response import StudyTipsResponse
 
 

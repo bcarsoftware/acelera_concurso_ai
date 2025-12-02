@@ -4,7 +4,7 @@ from src.core.constraints import HttpStatus
 from src.errors.prompt_error import PromptError
 from src.gemini.gemini import Gemini
 from src.models.prompt_dto import PromptDTO
-from src.models.prompt_resp import PromptResponse
+from src.models.prompt_response import PromptResponse
 from src.models.study_tips_response import StudyTipsResponse
 from src.services.iservice_prompt import IServicePrompt
 from src.utils.prompt_dto_checks import PromptDTOChecks

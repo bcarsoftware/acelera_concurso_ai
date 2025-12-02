@@ -13,13 +13,6 @@ controller_prompt: IControllerPrompt = ControllerPrompt()
 
 
 @exception_handler
-@prompt_route.route("/", methods=[Methods.POST])
-@authenticated
-async def prompt_questions() -> Response:
-    return await controller_prompt.generate_questions(request)
-
-
-@exception_handler
 @prompt_route.route("/study-tip", methods=[Methods.POST])
 @authenticated
 async def prompt_study_tip() -> Response:
