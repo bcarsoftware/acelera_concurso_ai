@@ -1,8 +1,13 @@
 import json
+from io import BytesIO
 
-import pymupdf
+from reportlab.lib.pagesizes import A4
+from reportlab.lib.styles import getSampleStyleSheet
+from reportlab.lib.units import inch
+from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase.ttfonts import TTFont
+from reportlab.platypus import Paragraph, Spacer, PageBreak, SimpleDocTemplate
 
-from src.core.constraints import PagePaper
 from src.errors.question_error import QuestionError
 from src.gemini.gemini import Gemini
 from src.models.question_dto import QuestionDTO
@@ -45,50 +50,53 @@ class ServiceQuestion(IServiceQuestion):
         if len(contents) < 1 or len(templates) < 1:
             raise QuestionError("empty data can't be used")
 
-        text_area_rect = pymupdf.Rect(
-            PagePaper.MARGIN,
-            PagePaper.MARGIN,
-            PagePaper.A4_WIDTH - PagePaper.MARGIN,
-            PagePaper.A4_HEIGHT - PagePaper.MARGIN
+        styles = getSampleStyleSheet()
+        style_normal = styles["Normal"]
+
+        try:
+            pdfmetrics.registerFont(TTFont("Inter", "font/Inter.ttf"))
+            pdfmetrics.registerFontFamily("Inter", normal="Inter")
+            style_normal.fontName = "Inter"
+            style_normal.fontSize = 12
+        except (FileNotFoundError, IOError):
+            style_normal.fontName = "Helvetica"
+        finally:
+            style_normal.fontSize = 12
+
+        pdf_file = BytesIO()
+
+        page_settings = SimpleDocTemplate(
+            pdf_file,
+            pagesize=A4,
+            rightMargin=0.5 * inch,
+            leftMargin=0.5 * inch,
+            topMargin=0.5 * inch,
+            bottomMargin=0.5 * inch
         )
+
+        flowable_list = []
 
         exam_content = (
-            f"{question_response.public_tender.upper()}\n" if question_response.public_tender else
-            f"GERADOR DE QUESTÔES DE CONCURSOS\n"
+            f"{question_response.public_tender.upper()}<br />" if question_response.public_tender else
+            f"GERADOR DE QUESTÔES DE CONCURSOS<br />"
         )
         exam_content += (
-            f"{question_response.board_name.upper()}\nACELERA CONCURSO\n{"=" * 62}\n"
-            if question_response.board_name else f"ACELERA CONCURSO\n{"=" * 62}\n"
+            f"{question_response.board_name.upper()}<br />ACELERA CONCURSO<br />{"=" * 63}<br />"
+            if question_response.board_name else f"ACELERA CONCURSO<br />{"=" * 63}<br />"
         )
 
-        with pymupdf.open() as pdf:
-            for content in contents:
-                page = pdf.new_page(width=PagePaper.A4_WIDTH, height=PagePaper.A4_HEIGHT)
+        flowable_list.append(Paragraph(exam_content, style_normal))
+        flowable_list.append(Spacer(1, 12))
 
-                page.insert_textbox(
-                    text_area_rect,
-                    exam_content + content,
-                    fontsize=12,
-                    fontname="Inter",
-                    fontfile="font/Inter.ttf",
-                    color=(0, 0, 0),
-                    align=pymupdf.TEXT_ALIGN_LEFT
-                )
-                exam_content = ""
+        for content in contents:
+            flowable_list.append(Paragraph(content, style_normal))
+            flowable_list.append(Spacer(1, 8))
 
-            for template in templates:
-                template_page = pdf.new_page(width=PagePaper.A4_WIDTH, height=PagePaper.A4_HEIGHT)
+        flowable_list.append(PageBreak())
 
-                template_page.insert_textbox(
-                    text_area_rect,
-                    template,
-                    fontsize=12,
-                    fontname="Inter",
-                    fontfile="font/Inter.ttf",
-                    color=(0, 0, 0),
-                    align=pymupdf.TEXT_ALIGN_LEFT
-                )
+        for template in templates:
+            flowable_list.append(Paragraph(template, style_normal))
 
-            pdf_file = pdf.convert_to_pdf()
+        page_settings.build(flowable_list)
 
-        return pdf_file
+        return pdf_file.getvalue()

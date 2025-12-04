@@ -51,10 +51,3 @@ class Methods:
 class Token:
     PUBLIC_KEY = environ.get("PUBLIC_SECRET") or "public-key"
     SECRET_KEY = environ.get("PRIVATE_SECRET") or "secret-key"
-
-
-@dataclass
-class PagePaper:
-    A4_WIDTH = 595
-    A4_HEIGHT = 842
-    MARGIN = 50
