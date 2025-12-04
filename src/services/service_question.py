@@ -6,7 +6,7 @@ from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.lib.units import inch
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
-from reportlab.platypus import Paragraph, Spacer, PageBreak, SimpleDocTemplate, Frame, PageTemplate, BaseDocTemplate
+from reportlab.platypus import Paragraph, Spacer, PageBreak, Frame, PageTemplate, BaseDocTemplate
 
 from src.errors.question_error import QuestionError
 from src.gemini.gemini import Gemini
