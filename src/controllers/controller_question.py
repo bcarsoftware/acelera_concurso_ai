@@ -34,6 +34,8 @@ class ControllerQuestion(IControllerQuestion):
             question_dto.law_content = await law_page_content(question_dto.law_link)
 
         questions = await self.service_question.generate_questions(question_dto)
+        questions.board_name = question_dto.board_name
+        questions.public_tender = question_dto.public_tender
 
         return await response_success(
             data=questions.model_dump(mode="json"),
@@ -56,6 +58,8 @@ class ControllerQuestion(IControllerQuestion):
         question_dto.format = await self._get_format_(question_dto.status)
 
         response = await self.service_question.generate_question_from_pdf(pdf_file.stream.read(), question_dto)
+        response.public_tender = question_dto.public_tender
+        response.board_name = question_dto.board_name
 
         return await response_success(
             data=response.model_dump(mode="json"),
