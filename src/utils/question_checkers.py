@@ -35,23 +35,23 @@ class QuestionChecks:
         if not question_response.questions:
             raise QuestionError("questions can't be empty", HttpStatus.BAD_REQUEST)
 
-        template = f"GABARITO DE RESPOSTAS<br />ACELERA CONCURSO<br />{"=" * 63}<br />"
+        template = f"GABARITO DE RESPOSTAS<br />ACELERA CONCURSO<br />{"=" * 30}<br />"
 
         questions = ()
         templates = ()
 
         for question in question_response.questions:
-            content = f"{question.id}. {question.question}<br /><br />"
+            content = f"<p>{question.id}. {question.question}</p><br /><br />"
             letter = 65
             for alternative in question.alternatives:
-                content += f"{chr(letter)}) {alternative}<br />"
+                content += f"<p>{chr(letter)}) {alternative}</p><br /><br />"
                 letter += 1
-            content += "<br />"
+            content += "-" * 43 + "<br />"
             questions += (content, )
 
             index_answer = question.alternatives.index(question.answer)
             letter = 65 + index_answer
-            template += f"{question.id}. {chr(letter)})<br />"
+            template += f"<p>{question.id}. {chr(letter)})</p>"
             templates += (template, )
             template = ""
 

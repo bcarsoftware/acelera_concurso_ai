@@ -6,7 +6,7 @@ from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.lib.units import inch
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
-from reportlab.platypus import Paragraph, Spacer, PageBreak, SimpleDocTemplate
+from reportlab.platypus import Paragraph, Spacer, PageBreak, SimpleDocTemplate, Frame, PageTemplate, BaseDocTemplate
 
 from src.errors.question_error import QuestionError
 from src.gemini.gemini import Gemini
@@ -65,14 +65,46 @@ class ServiceQuestion(IServiceQuestion):
 
         pdf_file = BytesIO()
 
-        page_settings = SimpleDocTemplate(
+        page_width, page_height = A4
+        margin = 0.5 * inch
+        column_gap = 0.25 * inch
+
+        column_width = (page_width - 2 * margin - column_gap) / 2
+        column_height = page_height - 2 * margin
+
+        first_column = Frame(
+            x1=margin,
+            y1=margin,
+            width=column_width,
+            height=column_height,
+            leftPadding=6,
+            bottomPadding=6,
+            rightPadding=6,
+            topPadding=6
+        )
+
+        second_column = Frame(
+            x1=margin + column_width + column_gap,
+            y1=margin,
+            width=column_width,
+            height=column_height,
+            leftPadding=6,
+            bottomPadding=6,
+            rightPadding=6,
+            topPadding=6
+        )
+
+        multi_columns = PageTemplate(id="two_columns", frames=[first_column, second_column])
+
+        page_settings = BaseDocTemplate(
             pdf_file,
             pagesize=A4,
-            rightMargin=0.5 * inch,
-            leftMargin=0.5 * inch,
-            topMargin=0.5 * inch,
-            bottomMargin=0.5 * inch
+            title="Questionário de Concurso Público",
+            author="ACELERA CONCURSO",
+            creator="ACELERA CONCURSO | Gerador de PDF"
         )
+
+        page_settings.addPageTemplates([multi_columns])
 
         flowable_list = []
 
@@ -81,8 +113,8 @@ class ServiceQuestion(IServiceQuestion):
             f"GERADOR DE QUESTÔES DE CONCURSOS<br />"
         )
         exam_content += (
-            f"{question_response.board_name.upper()}<br />ACELERA CONCURSO<br />{"=" * 63}<br />"
-            if question_response.board_name else f"ACELERA CONCURSO<br />{"=" * 63}<br />"
+            f"{question_response.board_name.upper()}<br />ACELERA CONCURSO<br />{"=" * 30}<br />"
+            if question_response.board_name else f"ACELERA CONCURSO<br />{"=" * 30}<br />"
         )
 
         flowable_list.append(Paragraph(exam_content, style_normal))
