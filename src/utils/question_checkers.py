@@ -44,7 +44,7 @@ class QuestionChecks:
             content = f"<p>{question.id}. {question.question}</p><br /><br />"
             letter = 65
             for alternative in question.alternatives:
-                content += f"<p>{chr(letter)}) {alternative}</p><br /><br />"
+                content += f"<p>({chr(letter)}) {alternative}</p><br /><br />"
                 letter += 1
             content += "-" * 43 + "<br />"
             questions += (content, )
