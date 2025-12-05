@@ -28,7 +28,8 @@ class QuestionDTO(BaseModel):
     @property
     def string(self) -> str:
         value = f"{
-            self.prompt + ". Without alternatives like: A). Only the alternative text."
+            self.prompt + ". Without alternatives like: A). Only the alternative text." +
+            " The answer MUST BE the same text found at the alternative list, without any explanation."
         }\nquestions: {self.questions}. Don't use any introductory information or posterior, only the required format."
         value += f"language: {self.language.value}\n"
         value += f"level: {self.level.value}\nstatus: {self.status.value}\n"
