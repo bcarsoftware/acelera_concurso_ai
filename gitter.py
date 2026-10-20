@@ -1,4 +1,4 @@
-from os import system
+from os import subprocess
 
 
 def line(length: int = 44, char: str = "-") -> None:
@@ -75,7 +75,7 @@ def init_new_repo() -> None:
 
     command = "git init"
 
-    system(command)
+    subprocess.run(command, shell=True)
 
     print("New Git Repository Created!")
 
@@ -127,7 +127,7 @@ def make_a_commit() -> None:
 
     line()
 
-    system(command)
+    subprocess.run(command, shell=True)
 
 
 def make_a_push() -> None:
@@ -135,7 +135,7 @@ def make_a_push() -> None:
 
     command = "git push"
 
-    system(command)
+    subprocess.run(command, shell=True)
 
 
 def add_all_files() -> None:
@@ -143,7 +143,7 @@ def add_all_files() -> None:
 
     command = "git add ."
 
-    system(command)
+    subprocess.run(command, shell=True)
 
     print("All Files added!")
 
@@ -153,7 +153,7 @@ def see_status() -> None:
 
     command = "git status"
 
-    system(command)
+    subprocess.run(command, shell=True)
 
 
 def make_pull_request() -> None:
@@ -161,7 +161,7 @@ def make_pull_request() -> None:
 
     command = "gh pr create"
 
-    system(command)
+    subprocess.run(command, shell=True)
 
 
 def make_a_pull() -> None:
@@ -169,7 +169,7 @@ def make_a_pull() -> None:
 
     command = "git pull"
 
-    system(command)
+    subprocess.run(command, shell=True)
 
 
 if __name__ == "__main__":

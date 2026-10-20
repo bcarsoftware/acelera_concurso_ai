@@ -1,6 +1,6 @@
 import asyncio
 import platform
-from os import system
+from os import subprocess
 
 
 async def command(os_name: str) -> str:
@@ -19,7 +19,7 @@ async def main():
     os_name = platform.system().upper()
     cmd_text = await command(os_name)
     print("------------------------")
-    system(cmd_text)
+    subprocess.run(cmd_text, shell=True)
     print("Env File Renamed!")
 
 
