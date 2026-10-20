@@ -1,4 +1,4 @@
-from os import subprocess
+import subprocess
 
 
 def line(length: int = 44, char: str = "-") -> None:
