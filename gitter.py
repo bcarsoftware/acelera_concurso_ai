@@ -75,7 +75,7 @@ def init_new_repo() -> None:
 
     command = "git init"
 
-    subprocess.run(command, shell=True)
+    subprocess.run(command, shell=True, check=False)
 
     print("New Git Repository Created!")
 
@@ -127,7 +127,7 @@ def make_a_commit() -> None:
 
     line()
 
-    subprocess.run(command, shell=True)
+    subprocess.run(command, shell=True, check=False)
 
 
 def make_a_push() -> None:
@@ -135,7 +135,7 @@ def make_a_push() -> None:
 
     command = "git push"
 
-    subprocess.run(command, shell=True)
+    subprocess.run(command, shell=True, check=False)
 
 
 def add_all_files() -> None:
@@ -143,7 +143,7 @@ def add_all_files() -> None:
 
     command = "git add ."
 
-    subprocess.run(command, shell=True)
+    subprocess.run(command, shell=True, check=False)
 
     print("All Files added!")
 
@@ -153,7 +153,7 @@ def see_status() -> None:
 
     command = "git status"
 
-    subprocess.run(command, shell=True)
+    subprocess.run(command, shell=True, check=False)
 
 
 def make_pull_request() -> None:
@@ -161,7 +161,7 @@ def make_pull_request() -> None:
 
     command = "gh pr create"
 
-    subprocess.run(command, shell=True)
+    subprocess.run(command, shell=True, check=False)
 
 
 def make_a_pull() -> None:
@@ -169,7 +169,7 @@ def make_a_pull() -> None:
 
     command = "git pull"
 
-    subprocess.run(command, shell=True)
+    subprocess.run(command, shell=True, check=False)
 
 
 if __name__ == "__main__":
